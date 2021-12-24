@@ -7,14 +7,11 @@ import SignUpScreen from './src/screens/SignupScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import { Provider as AuthProvider } from './src/context/AuthContext';
 import { Provider as LocationProvider } from './src/context/LocationContext';
+import { Provider as TrackProvider } from './src/context/TrackContext';
+
 
 import { navigationRef } from './src/navigationRef';
 import ResolveAuthScreen from './src/screens/ResolveAuthScreen';
-
-
-
-
-
 
 
 const Stack = createNativeStackNavigator();
@@ -23,6 +20,7 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <LocationProvider>
+      <TrackProvider>
     <AuthProvider>
       <NavigationContainer ref={navigationRef}>
         <Stack.Navigator screenOptions={{ headerShown: false }}  >
@@ -35,6 +33,7 @@ export default function App() {
 
       </NavigationContainer>
     </AuthProvider>
+    </TrackProvider>
     </LocationProvider>
   );
 }

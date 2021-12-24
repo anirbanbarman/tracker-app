@@ -10,7 +10,7 @@ const trackStack = createNativeStackNavigator();
 export default function TrackScreen() {
     return (
 
-        <trackStack.Navigator  screenOptions={{ headerShown: true }} initialRouteName='TrackDetails'>
+        <trackStack.Navigator  screenOptions={{ headerShown: false }} initialRouteName='TrackList'>
             <trackStack.Screen name="TrackList" component={TrackListScreen} />
             <trackStack.Screen name="TrackDetails" component={TrackDetailsScreen} />
 

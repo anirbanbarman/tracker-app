@@ -5,8 +5,12 @@ export default(shouldTrack,callback)=>{
 
 const [location, setLocation] = useState(null);
 const [errorMsg, setErrorMsg] = useState(null);
-const [subscriber,setSubscriber]=useState(null)
+const [subscriber,setSubscriber]=useState(null);
 useEffect(() => {
+  let subscriber;
+
+
+
     if(shouldTrack){
 
 
@@ -21,26 +25,37 @@ useEffect(() => {
     let location = await Location.getCurrentPositionAsync({});
     setErrorMsg("")
     console.log(location)
-    const sub= await Location.watchPositionAsync({
+     subscriber= await Location.watchPositionAsync({
         accuracy: Location.Accuracy.BestForNavigation,
         distanceInterval: 10,
         timeInterval: 1000
       },
       callback
       );
-      setSubscriber(sub)
-    setLocation(location);
+     
+      setLocation(location);
   })();
 }
 else{
-subscriber.remove();
-setSubscriber(null)
+
+  if(subscriber){
+    subscriber.remove();
+  }
+  subscriber=null;
+
+
+}
+
+return()=>{
+  if(subscriber){
+    subscriber.remove();
+  }
 
 }
 
 
   
-}, [shouldTrack]);
+}, [shouldTrack,callback]);
 
 return [errorMsg];
 }

@@ -1,7 +1,7 @@
 
 
 import { useIsFocused } from '@react-navigation/native';
-import React, { useContext, useEffect } from 'react';
+import React, { useCallback, useContext, useEffect } from 'react';
 import {  StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Header from '../components/Header';
@@ -24,7 +24,11 @@ export default function TrackCreateScreen({navigation}) {
   //   return unsubscribe;
   // }, [navigation]);
   const {state,addLocation}=useContext(LocationContext);
-  const [errorMsg]=useLocation(isFocused,(location)=>addLocation(location,state.recording));
+
+  const callback=useCallback((location)=>{
+    addLocation(location,state.recording);
+  },[state.recording]);
+  const [errorMsg]=useLocation(isFocused || state.recording,callback);
  
 
   return (
